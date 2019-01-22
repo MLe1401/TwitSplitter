@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial scale=1.0">
+	<meta name="author" content="Minh Le">
+	<title>Tweeter</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="logo">
+    	<a href="index.html"><img class="logo-img" src="img/tweeter.png" width="130" height="130"></a>
+	</div>
+	<div>
+		<div>
+		<form id="input">
+			<textarea id="tweetInput" placeholder="Enter Your Tweet Here"></textarea>
+		</form>
+		</div>
+		<button id="tweetButton" onclick="printNewTweet()">Tweet</button>
+	</div>
+
+	<script type="text/javascript">
+		function printNewTweet(){
+			var a = document.getElementById('tweetInput').value;
+			var b = a.includes(" ");
+			if (a.length==0){
+				document.getElementById('tweet').innerHTML += "Please enter your tweet" +"\br";
+			}
+			else if (b==false && a.length>50){
+				document.getElementById('tweet').innerHTML += "Error! Please input a tweet with whitespace!" + "<br>";
+			}
+			else if (a.length <= 50){
+				document.getElementById('tweet').innerHTML += "\"" + a + "\"" +"<br>";
+			}
+			else{
+				var n = Math.ceil(a.length / 50);
+				var arr = a.split(" ");
+				var temp = 0;
+				for (var i=0; i<n; i++){
+					var splitTweet = (i+1) + "/" + n;
+					for (var j=temp; j<arr.length;j++){
+						if((splitTweet.length + arr[j].length)<=50){
+							splitTweet += " " + arr[j] ;
+							temp = j+1;
+						}
+						else {
+							break;
+						}
+					}
+					document.getElementById('tweet').innerHTML += "\"" + splitTweet + "\"" + "<br>";
+				}
+			}
+		}
+	</script>
+	<p id="tweet">
+	</p>
+</body>
+</html>
